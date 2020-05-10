@@ -1,6 +1,7 @@
 /* environment.go - Go wrapper for Emacs module API.
 
 Copyright (C) 2016 Yann Hodique <yann.hodique@gmail.com>.
+Copyright (C) 2020 Yutaka Matsubara <yutaka.matsubara@gmail.com>.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -50,6 +51,7 @@ type Environment interface {
 	StdLib() StdLib
 	RegisterFunction(string, FunctionType, int, string, interface{}) Function
 	ProvideFeature(string)
+	Raw() *C.emacs_env
 }
 
 type emacsEnv struct {
@@ -257,6 +259,10 @@ func (e *emacsEnv) ProvideFeature(name string) {
 	stdlib := e.StdLib()
 	sym := stdlib.Intern(name)
 	stdlib.Provide(sym)
+}
+
+func (e *emacsEnv) Raw() *C.emacs_env {
+	return e.env
 }
 
 var _ Environment = (*emacsEnv)(nil)
