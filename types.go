@@ -1,6 +1,7 @@
 /* types.go - Go wrapper for Emacs module API.
 
 Copyright (C) 2016 Yann Hodique <yann.hodique@gmail.com>.
+Copyright (C) 2020 Yutaka Matsubara <yutaka.matsubara@gmail.com>.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,6 +34,7 @@ type Value interface {
 	AsVector() Vector
 	AsList() List
 	AsUserPointer() UserPointer
+	IsT() bool
 }
 
 type baseValue struct {
@@ -52,6 +54,7 @@ func (v baseValue) AsFunction() Function       { return functionValue{v} }
 func (v baseValue) AsVector() Vector           { return vectorValue{v} }
 func (v baseValue) AsList() List               { return listValue{v} }
 func (v baseValue) AsUserPointer() UserPointer { return userPointerValue{v} }
+func (v baseValue) IsT() bool                  { return v.val != nil }
 
 // String wraps an emacs string
 type String interface {
