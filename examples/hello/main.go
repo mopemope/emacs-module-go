@@ -23,8 +23,8 @@ import "C"
 import (
 	"fmt"
 
-	log "github.com/Sirupsen/logrus"
 	"github.com/mopemope/emacs-module-go"
+	log "github.com/sirupsen/logrus"
 )
 
 func init() {
